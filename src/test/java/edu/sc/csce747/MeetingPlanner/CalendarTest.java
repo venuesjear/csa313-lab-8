@@ -52,6 +52,26 @@ public class CalendarTest {
     public void testCheckTimes_invalidMonthUpperBound() {
         assertThrows(TimeConflictException.class, () -> Calendar.checkTimes(13, 1, 0, 1));
     }
+
+    @Test
+    public void testCheckTimes_validStartLowerBound() {
+        assertDoesNotThrow(() -> Calendar.checkTimes(1, 1, 0, 1));
+    }
+
+    @Test
+    public void testCheckTimes_validStartUpperBound() {
+        assertDoesNotThrow(() -> Calendar.checkTimes(1, 1, 22, 23));
+    }
+
+    @Test
+    public void testCheckTimes_invalidStartLowerBound() {
+        assertThrows(TimeConflictException.class, () -> Calendar.checkTimes(1, 1, -1, 0));
+    }
+
+    @Test
+    public void testCheckTimes_invalidStartUpperBound() {
+        assertThrows(TimeConflictException.class, () -> Calendar.checkTimes(1, 1, 23, 1));
+    }
 	
 //	@Test
 	public void testAddMeeting_holiday() {
