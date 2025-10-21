@@ -6,8 +6,7 @@ package edu.sc.csce747.MeetingPlanner;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CalendarTest {
 	// Add test methods here. 
@@ -71,6 +70,37 @@ public class CalendarTest {
     @Test
     public void testCheckTimes_invalidStartUpperBound() {
         assertThrows(TimeConflictException.class, () -> Calendar.checkTimes(1, 1, 23, 1));
+    }
+
+    @Test
+    public void testCheckTimes_invalidEndUpperBound() {
+        assertThrows(TimeConflictException.class, () -> Calendar.checkTimes(1, 1, 23, 24));
+    }
+
+    @Test
+    public void testCalendar_dayDoesNotExist() {
+        Calendar calendar = new Calendar();
+
+        String[] occupied = new String[]{
+                calendar.getMeeting(2, 29, 0).getDescription(),
+                calendar.getMeeting(2, 30, 0).getDescription(),
+                calendar.getMeeting(2, 31, 0).getDescription(),
+                calendar.getMeeting(4, 31, 0).getDescription(),
+                calendar.getMeeting(6, 31, 0).getDescription(),
+                calendar.getMeeting(9, 31, 0).getDescription(),
+                calendar.getMeeting(11, 31, 0).getDescription()
+        };
+
+        for (String desc : occupied) {
+            assertEquals("Day does not exist", desc);
+        }
+    }
+
+    @Test
+    public void testCalendar_dayExists() {
+        Calendar calendar = new Calendar();
+
+        assertNotEquals("Day does not exist", calendar.getMeeting(11, 30, 0).getDescription());
     }
 	
 //	@Test
