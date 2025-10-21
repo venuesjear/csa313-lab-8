@@ -4,9 +4,34 @@ package edu.sc.csce747.MeetingPlanner;
 //import static org.junit.Assert.fail;
 //import org.junit.Test;
 
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class CalendarTest {
 	// Add test methods here. 
 	// You are not required to write tests for all classes.
+
+    @Test
+    public void testCheckTimes_validDayLowerBound() {
+        assertDoesNotThrow(() -> Calendar.checkTimes(1, 1, 0, 1));
+    }
+
+    @Test
+    public void testCheckTimes_validDayUpperBound() {
+        assertDoesNotThrow(() -> Calendar.checkTimes(1, 31, 0, 1));
+    }
+
+    @Test
+    public void testCheckTimes_invalidDayLowerBound() {
+        assertThrows(TimeConflictException.class, () -> Calendar.checkTimes(1, 0, 0, 1));
+    }
+
+    @Test
+    public void testCheckTimes_invalidDayUpperBound() {
+        assertThrows(TimeConflictException.class, () -> Calendar.checkTimes(1, 32, 0, 1));
+    }
 	
 //	@Test
 	public void testAddMeeting_holiday() {
