@@ -3,8 +3,7 @@ package edu.sc.csce747.MeetingPlanner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RoomTest {
     private Room room;
@@ -24,5 +23,24 @@ public class RoomTest {
         Meeting meeting = new Meeting(1, 1, 10, 12);
         room.addMeeting(meeting);
         assertTrue(room.isBusy(1, 1, 10, 12));
+    }
+
+    @Test
+    public void testAddMeeting_validMeeting() throws TimeConflictException {
+        Meeting meeting = new Meeting(1, 1, 10, 12);
+        room.addMeeting(meeting);
+        assertTrue(room.isBusy(1, 1, 10, 12));
+    }
+
+    @Test
+    public void testAddMeeting_conflictingMeeting() throws TimeConflictException {
+        Meeting meeting1 = new Meeting(1, 1, 10, 12);
+        meeting1.setDescription("First Meeting");
+        Meeting meeting2 = new Meeting(1, 1, 11, 13);
+        meeting2.setDescription("Second Meeting");
+        room.addMeeting(meeting1);
+        TimeConflictException exception = assertThrows(TimeConflictException.class,
+                () -> room.addMeeting(meeting2));
+        assertTrue(exception.getMessage().contains("Conflict for room"));
     }
 }
