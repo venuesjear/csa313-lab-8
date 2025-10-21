@@ -171,7 +171,6 @@ public class CalendarTest {
         Calendar calendar = new Calendar();
         Meeting meeting = new Meeting(1, 1, 10, 12, new ArrayList<>(), new Room(), "Test");
         calendar.addMeeting(meeting);
-
         String agenda = calendar.printAgenda(1, 1);
         assertTrue(agenda.contains("Test"));
         assertTrue(agenda.contains("1/1"));

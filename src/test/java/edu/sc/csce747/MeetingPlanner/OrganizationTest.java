@@ -1,9 +1,11 @@
 package edu.sc.csce747.MeetingPlanner;
 
-//import static org.junit.Assert.*;
-//import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class OrganizationTest {
-	// Add test methods here. 
-    // You are not required to write tests for all classes.
+
+    @Test
+    public void testGetRooms() {
+
+    }
 }
