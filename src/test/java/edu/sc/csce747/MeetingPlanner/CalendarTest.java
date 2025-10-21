@@ -173,7 +173,6 @@ public class CalendarTest {
         calendar.addMeeting(meeting);
 
         String agenda = calendar.printAgenda(1, 1);
-        System.out.println(agenda);
         assertTrue(agenda.contains("Test"));
         assertTrue(agenda.contains("1/1"));
     }
