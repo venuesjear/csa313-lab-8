@@ -3,8 +3,7 @@ package edu.sc.csce747.MeetingPlanner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PersonTest {
     private Person person;
@@ -23,6 +22,11 @@ public class PersonTest {
         Meeting meeting = new Meeting(1, 1, 10, 12);
         person.addMeeting(meeting);
         assertTrue(person.isBusy(1, 1, 10, 12));
+    }
+
+    @Test
+    public void testGetName_valid() {
+        assertEquals("Sugar", person.getName());
     }
 
 }
