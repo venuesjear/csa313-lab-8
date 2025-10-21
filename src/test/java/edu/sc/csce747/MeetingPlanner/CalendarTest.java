@@ -2,6 +2,8 @@ package edu.sc.csce747.MeetingPlanner;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CalendarTest {
@@ -152,5 +154,27 @@ public class CalendarTest {
         TimeConflictException exception = assertThrows(TimeConflictException.class,
                 () -> calendar.addMeeting(meeting2));
         assertTrue(exception.getMessage().contains("Overlap with another item"));
+    }
+
+    @Test
+    public void testClearSchedule() throws TimeConflictException {
+        Calendar calendar = new Calendar();
+        Meeting meeting = new Meeting(1, 11, 10, 12);
+        calendar.addMeeting(meeting);
+        assertTrue(calendar.isBusy(1, 11, 10, 12));
+        calendar.clearSchedule(1, 11);
+        assertFalse(calendar.isBusy(1, 11, 10, 12));
+    }
+
+    @Test
+    public void testPrintAgenda() throws TimeConflictException {
+        Calendar calendar = new Calendar();
+        Meeting meeting = new Meeting(1, 1, 10, 12, new ArrayList<>(), new Room(), "Test");
+        calendar.addMeeting(meeting);
+
+        String agenda = calendar.printAgenda(1, 1);
+        System.out.println(agenda);
+        assertTrue(agenda.contains("Test"));
+        assertTrue(agenda.contains("1/1"));
     }
 }
