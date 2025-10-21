@@ -3,6 +3,8 @@ package edu.sc.csce747.MeetingPlanner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class OrganizationTest {
@@ -25,6 +27,13 @@ public class OrganizationTest {
         Exception exception = assertThrows(Exception.class,
                 () -> organization.getRoom("NonExistentRoom"));
         assertEquals("Requested room does not exist", exception.getMessage());
+    }
+
+    @Test
+    public void testGetEmployees() {
+        ArrayList<Person> employees = organization.getEmployees();
+        assertNotNull(employees);
+        assertTrue(employees.size() >= 5);
     }
 
 }
