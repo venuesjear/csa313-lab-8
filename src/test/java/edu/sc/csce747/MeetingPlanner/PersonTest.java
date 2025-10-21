@@ -48,4 +48,14 @@ public class PersonTest {
         assertTrue(exception.getMessage().contains("Conflict for attendee Sugar"));
     }
 
+    @Test
+    public void testGetMeeting() throws TimeConflictException {
+        Meeting meeting = new Meeting(1, 1, 10, 12);
+        person.addMeeting(meeting);
+        Meeting retrieved = person.getMeeting(1, 1, 0);
+        assertNotNull(retrieved);
+        assertEquals(1, retrieved.getMonth());
+        assertEquals(1, retrieved.getDay());
+    }
+
 }
