@@ -18,12 +18,14 @@ public class CalendarTest {
 
     @Test
     public void testCheckTimes_invalidDayLowerBound() {
-        assertThrows(TimeConflictException.class, () -> Calendar.checkTimes(1, 0, 0, 1));
+        TimeConflictException exception = assertThrows(TimeConflictException.class, () -> Calendar.checkTimes(1, 0, 0, 1));
+        assertEquals("Day does not exist.", exception.getMessage());
     }
 
     @Test
     public void testCheckTimes_invalidDayUpperBound() {
-        assertThrows(TimeConflictException.class, () -> Calendar.checkTimes(1, 32, 0, 1));
+        TimeConflictException exception = assertThrows(TimeConflictException.class, () -> Calendar.checkTimes(1, 32, 0, 1));
+        assertEquals("Day does not exist.", exception.getMessage());
     }
 
     @Test
@@ -38,12 +40,14 @@ public class CalendarTest {
 
     @Test
     public void testCheckTimes_invalidMonthLowerBound() {
-        assertThrows(TimeConflictException.class, () -> Calendar.checkTimes(0, 1, 0, 1));
+        TimeConflictException exception = assertThrows(TimeConflictException.class, () -> Calendar.checkTimes(0, 1, 0, 1));
+        assertEquals("Month does not exist.", exception.getMessage());
     }
 
     @Test
     public void testCheckTimes_invalidMonthUpperBound() {
-        assertThrows(TimeConflictException.class, () -> Calendar.checkTimes(13, 1, 0, 1));
+        TimeConflictException exception = assertThrows(TimeConflictException.class, () -> Calendar.checkTimes(13, 1, 0, 1));
+        assertEquals("Month does not exist.", exception.getMessage());
     }
 
     @Test
@@ -58,17 +62,38 @@ public class CalendarTest {
 
     @Test
     public void testCheckTimes_invalidStartLowerBound() {
-        assertThrows(TimeConflictException.class, () -> Calendar.checkTimes(1, 1, -1, 0));
+        TimeConflictException exception = assertThrows(TimeConflictException.class, () -> Calendar.checkTimes(1, 1, -1, 0));
+        assertEquals("Illegal hour.", exception.getMessage());
     }
 
     @Test
-    public void testCheckTimes_invalidStartUpperBound() {
-        assertThrows(TimeConflictException.class, () -> Calendar.checkTimes(1, 1, 23, 1));
+    public void testCheckTimes_invalidStartEndLowerBound() {
+        TimeConflictException exception = assertThrows(TimeConflictException.class, () -> Calendar.checkTimes(1, 1, 0, 0));
+        assertEquals("Meeting starts before it ends.", exception.getMessage());
+    }
+
+    @Test
+    public void testCheckTimes_invalidStartEndUpperBound() {
+        TimeConflictException exception = assertThrows(TimeConflictException.class, () -> Calendar.checkTimes(1, 1, 23, 23));
+        assertEquals("Meeting starts before it ends.", exception.getMessage());
     }
 
     @Test
     public void testCheckTimes_invalidEndUpperBound() {
-        assertThrows(TimeConflictException.class, () -> Calendar.checkTimes(1, 1, 23, 24));
+        TimeConflictException exception = assertThrows(TimeConflictException.class, () -> Calendar.checkTimes(1, 1, 23, 24));
+        assertEquals("Illegal hour.", exception.getMessage());
+    }
+
+    @Test
+    public void testCheckTimes_startLessThanEnd() {
+        assertDoesNotThrow(() -> Calendar.checkTimes(1, 1, 10, 11));
+    }
+
+    @Test
+    public void testCheckTimes_startGreaterThanOrEqualEnd() {
+        TimeConflictException exception = assertThrows(TimeConflictException.class,
+                () -> Calendar.checkTimes(1, 1, 12, 12));
+        assertEquals("Meeting starts before it ends.", exception.getMessage());
     }
 
     @Test
@@ -91,7 +116,7 @@ public class CalendarTest {
     }
 
     @Test
-    public void testCalendar_dayExists() {
+    public void testCalendar_validDayExists() {
         Calendar calendar = new Calendar();
         assertNotEquals("Day does not exist", calendar.getMeeting(11, 30, 0).getDescription());
     }
@@ -100,5 +125,32 @@ public class CalendarTest {
     public void testIsBusy_returnsTrueForFull() throws TimeConflictException {
         Calendar calendar = new Calendar();
         assertTrue(calendar.isBusy(2,29,0,23));
+    }
+
+    @Test
+    public void testIsBusy_freeDayReturnsFalse() throws TimeConflictException {
+        Calendar calendar = new Calendar();
+        assertFalse(calendar.isBusy(1, 1, 1, 2));
+    }
+
+    @Test
+    public void testAddMeeting_validMeeting() throws TimeConflictException {
+        Calendar calendar = new Calendar();
+        Meeting meeting = new Meeting(1, 1, 1, 2);
+        calendar.addMeeting(meeting);
+        assertTrue(calendar.isBusy(1, 1, 1, 2));
+    }
+
+    @Test
+    public void testAddMeeting_conflictingMeeting() throws TimeConflictException {
+        Calendar calendar = new Calendar();
+        Meeting meeting1 = new Meeting(1, 1, 1, 3);
+        meeting1.setDescription("First Meeting");
+        Meeting meeting2 = new Meeting(1, 1, 2, 4);
+        meeting2.setDescription("Second Meeting");
+        calendar.addMeeting(meeting1);
+        TimeConflictException exception = assertThrows(TimeConflictException.class,
+                () -> calendar.addMeeting(meeting2));
+        assertTrue(exception.getMessage().contains("Overlap with another item"));
     }
 }
