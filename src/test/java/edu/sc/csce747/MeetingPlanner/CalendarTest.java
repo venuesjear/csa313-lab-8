@@ -1,16 +1,10 @@
 package edu.sc.csce747.MeetingPlanner;
 
-//import static org.junit.Assert.assertTrue;
-//import static org.junit.Assert.fail;
-//import org.junit.Test;
-
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CalendarTest {
-	// Add test methods here. 
-	// You are not required to write tests for all classes.
 
     @Test
     public void testCheckTimes_validDayLowerBound() {
@@ -99,23 +93,12 @@ public class CalendarTest {
     @Test
     public void testCalendar_dayExists() {
         Calendar calendar = new Calendar();
-
         assertNotEquals("Day does not exist", calendar.getMeeting(11, 30, 0).getDescription());
     }
-	
-//	@Test
-	public void testAddMeeting_holiday() {
-		// Create Midsommar holiday
-//		Calendar calendar = new Calendar();
-//		// Add to calendar object.
-//		try {
-//			Meeting midsommar = new Meeting(6, 26, "Midsommar");
-//			calendar.addMeeting(midsommar);
-//			// Verify that it was added.
-//			Boolean added = calendar.isBusy(6, 26, 0, 23);
-//			assertTrue("Midsommar should be marked as busy on the calendar",added);
-//		} catch(TimeConflictException e) {
-//			fail("Should not throw exception: " + e.getMessage());
-//		}
-	}
+
+    @Test
+    public void testIsBusy_returnsTrueForFull() throws TimeConflictException {
+        Calendar calendar = new Calendar();
+        assertTrue(calendar.isBusy(2,29,0,23));
+    }
 }
