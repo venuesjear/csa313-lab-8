@@ -36,4 +36,18 @@ public class OrganizationTest {
         assertTrue(employees.size() >= 5);
     }
 
+    @Test
+    public void testGetEmployee_existingEmployee() throws Exception {
+        Person employee = organization.getEmployee("Greg Gay");
+        assertNotNull(employee);
+        assertEquals("Greg Gay", employee.getName());
+    }
+
+    @Test
+    public void testGetEmployee_nonExistingEmployee() {
+        Exception exception = assertThrows(Exception.class,
+                () -> organization.getEmployee("NonExistent Employee"));
+        assertEquals("Requested employee does not exist", exception.getMessage());
+    }
+
 }
