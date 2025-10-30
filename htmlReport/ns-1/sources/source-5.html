@@ -1,0 +1,577 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > PlannerInterface</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">edu.sc.csce747.MeetingPlanner</a>
+</div>
+
+<h1>Coverage Summary for Class: PlannerInterface (edu.sc.csce747.MeetingPlanner)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PlannerInterface</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/102)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/190)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package edu.sc.csce747.MeetingPlanner;
+&nbsp;
+&nbsp;import java.io.BufferedReader;
+&nbsp;import java.io.IOException;
+&nbsp;import java.io.InputStreamReader;
+&nbsp;import java.util.ArrayList;
+&nbsp;
+&nbsp;public class PlannerInterface {
+&nbsp;	private Organization org;
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Constructor, sets up organization data structure.
+&nbsp;	 */
+<b class="nc">&nbsp;	public PlannerInterface(){</b>
+<b class="nc">&nbsp;		org = new Organization();</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Driver for the calendar system.
+&nbsp;	 * @param args - Unused for this class
+&nbsp;	 */
+&nbsp;	public static void main(String[] args){	
+<b class="nc">&nbsp;		PlannerInterface menu = new PlannerInterface();</b>
+<b class="nc">&nbsp;		System.out.println(&quot;Welcome to the Meeting Scheduling Interface.&quot;);</b>
+<b class="nc">&nbsp;		menu.mainMenu();</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Prints the main menu and handles user input for 
+&nbsp;	 * main menu commands.
+&nbsp;	 */
+&nbsp;	public void mainMenu() {
+<b class="nc">&nbsp;		System.out.println(&quot;1. Schedule a meeting&quot;);</b>
+<b class="nc">&nbsp;		System.out.println(&quot;2. Request vacation time&quot;);</b>
+<b class="nc">&nbsp;		System.out.println(&quot;3. Check room availability&quot;);</b>
+<b class="nc">&nbsp;		System.out.println(&quot;4. Check person availability&quot;);</b>
+<b class="nc">&nbsp;		System.out.println(&quot;5. Print agenda for a room&quot;);</b>
+<b class="nc">&nbsp;		System.out.println(&quot;6. Check agenda for a person&quot;);</b>
+<b class="nc">&nbsp;		System.out.println(&quot;0. Exit\n&quot;);</b>
+&nbsp;
+&nbsp;		//Get user input
+&nbsp;		try {
+<b class="nc">&nbsp;			int userInput = Integer.parseInt(inputOutput(&quot;Please press the number that corresponds to what you would like to do.&quot;));</b>
+&nbsp;
+<b class="nc">&nbsp;			if (userInput &gt;= 0 &amp;&amp; userInput &lt;=6) {</b>
+<b class="nc">&nbsp;				if (userInput == 1) {</b>
+<b class="nc">&nbsp;					this.scheduleMeeting();</b>
+&nbsp;				}
+<b class="nc">&nbsp;				if (userInput == 2){</b>
+<b class="nc">&nbsp;					this.scheduleVacation();</b>
+&nbsp;				}
+<b class="nc">&nbsp;				if (userInput == 3){</b>
+<b class="nc">&nbsp;					this.checkRoomAvailability();</b>
+&nbsp;				}
+<b class="nc">&nbsp;				if (userInput == 4){</b>
+<b class="nc">&nbsp;					this.checkEmployeeAvailability();</b>
+&nbsp;				}
+<b class="nc">&nbsp;				if (userInput == 5){</b>
+<b class="nc">&nbsp;					this.checkAgendaRoom();</b>
+&nbsp;				}
+<b class="nc">&nbsp;				if (userInput == 6){</b>
+<b class="nc">&nbsp;					this.checkAgendaPerson();</b>
+&nbsp;				}
+<b class="nc">&nbsp;				if (userInput == 0) System.exit(0);</b>
+&nbsp;			} else {
+<b class="nc">&nbsp;				System.out.println(&quot;Please enter a number from 0 - 6&quot;);</b>
+<b class="nc">&nbsp;				this.mainMenu();</b>
+&nbsp;			}
+&nbsp;		} catch (NumberFormatException e) {
+<b class="nc">&nbsp;			System.out.println(&quot;Please enter a number from 0 - 6&quot;);</b>
+<b class="nc">&nbsp;			this.mainMenu();</b>
+&nbsp;		}
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Passes a prompt to the user and returns the user specified 
+&nbsp;	 * string.
+&nbsp;	 * @param message - User input.
+&nbsp;	 * @return String - Entered string.
+&nbsp;	 */
+&nbsp;	private String inputOutput(String message) {
+<b class="nc">&nbsp;		System.out.println(message);</b>
+<b class="nc">&nbsp;		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));</b>
+<b class="nc">&nbsp;		String returnString = &quot;&quot;;</b>
+&nbsp;		try {
+<b class="nc">&nbsp;			returnString = br.readLine();</b>
+&nbsp;		}
+&nbsp;		catch (IOException e){
+<b class="nc">&nbsp;			System.out.println(&quot;Error reading in value&quot;);</b>
+<b class="nc">&nbsp;			this.mainMenu();</b>
+&nbsp;		}
+<b class="nc">&nbsp;		return returnString;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Allows the user to schedule a meeting by entering 
+&nbsp;	 * information about the meeting.
+&nbsp;	 */
+&nbsp;	public void scheduleMeeting() {
+&nbsp;
+&nbsp;		//Read in month
+<b class="nc">&nbsp;		int month = Integer.parseInt(inputOutput(&quot;\nEnter the month of the meeting (1-12): &quot;));</b>
+&nbsp;
+&nbsp;		//Read in day
+<b class="nc">&nbsp;		int day = Integer.parseInt(inputOutput(&quot;\nEnter the day of the meeting (1-31): &quot;));</b>
+&nbsp;
+&nbsp;		//Read in start time
+<b class="nc">&nbsp;		int startTime = Integer.parseInt(inputOutput(&quot;\nEnter the starting hour of the meeting (0-23): &quot;));</b>
+&nbsp;
+&nbsp;		//Read in end time
+<b class="nc">&nbsp;		int endTime = Integer.parseInt(inputOutput(&quot;\nEnter the ending hour of the meeting (0-23): &quot;));</b>
+&nbsp;
+<b class="nc">&nbsp;		System.out.println(&quot;The rooms open at that time are:&quot;);</b>
+&nbsp;		//Display the rooms open at that time
+<b class="nc">&nbsp;		for(Room r: org.getRooms()){</b>
+&nbsp;			try{
+<b class="nc">&nbsp;				if(!(r.isBusy(month, day, startTime, endTime))){</b>
+<b class="nc">&nbsp;					System.out.println(r.getID());</b>
+&nbsp;				}
+&nbsp;			}catch(TimeConflictException e){
+<b class="nc">&nbsp;				System.out.println(e.getMessage());</b>
+<b class="nc">&nbsp;				this.mainMenu();</b>
+&nbsp;			}
+&nbsp;		}
+&nbsp;
+&nbsp;		//Read in room ID
+<b class="nc">&nbsp;		Room where = new Room();</b>
+<b class="nc">&nbsp;		boolean selected=false;</b>
+<b class="nc">&nbsp;		while(!selected){</b>
+&nbsp;			try{
+<b class="nc">&nbsp;				String id =inputOutput(&quot;\nEnter the desired room ID, or cancel to cancel: &quot;);</b>
+<b class="nc">&nbsp;				if(id.equals(&quot;cancel&quot;)){</b>
+<b class="nc">&nbsp;					this.mainMenu();</b>
+&nbsp;				}else{
+<b class="nc">&nbsp;					where = org.getRoom(id);</b>
+&nbsp;				}
+<b class="nc">&nbsp;				selected=true;</b>
+&nbsp;			}catch(Exception e){
+<b class="nc">&nbsp;				System.out.println(e.getMessage());</b>
+&nbsp;			}
+&nbsp;		}	
+&nbsp;
+<b class="nc">&nbsp;		System.out.println(&quot;The people available to attend at that time are:&quot;);</b>
+&nbsp;		//Display the people available at that time
+<b class="nc">&nbsp;		for(Person p: org.getEmployees()){</b>
+&nbsp;			try{
+<b class="nc">&nbsp;				if(!(p.isBusy(month, day, startTime, endTime))){</b>
+<b class="nc">&nbsp;					System.out.println(p.getName());</b>
+&nbsp;				}
+&nbsp;			}catch(TimeConflictException e){
+<b class="nc">&nbsp;				System.out.println(e.getMessage());</b>
+<b class="nc">&nbsp;				this.mainMenu();</b>
+&nbsp;			}
+&nbsp;		}
+&nbsp;
+&nbsp;		//Read in person names
+<b class="nc">&nbsp;		String name = &quot;&quot;;</b>
+<b class="nc">&nbsp;		ArrayList&lt;Person&gt; attendees = new ArrayList&lt;Person&gt;();</b>
+<b class="nc">&nbsp;		while(!name.equals(&quot;done&quot;)){</b>
+<b class="nc">&nbsp;			name = inputOutput(&quot;\nEnter a person&#39;s name, or done if finished: &quot;);</b>
+<b class="nc">&nbsp;			if(!name.equals(&quot;done&quot;)){</b>
+&nbsp;				try{
+<b class="nc">&nbsp;					Person who = org.getEmployee(name);</b>
+<b class="nc">&nbsp;					attendees.add(who);</b>
+&nbsp;				}catch(Exception e){
+<b class="nc">&nbsp;					System.out.println(e.getMessage());</b>
+&nbsp;				}
+&nbsp;			}
+&nbsp;		}
+&nbsp;
+&nbsp;		//Read in description
+<b class="nc">&nbsp;		String description  = (inputOutput(&quot;\nEnter a description for the meeting: &quot;));</b>
+&nbsp;
+<b class="nc">&nbsp;		Meeting meeting = new Meeting(month,day,startTime,endTime,attendees,where,description);</b>
+&nbsp;		try{
+<b class="nc">&nbsp;			where.addMeeting(meeting);</b>
+<b class="nc">&nbsp;			for(Person employee: attendees){</b>
+<b class="nc">&nbsp;				employee.addMeeting(meeting);</b>
+&nbsp;			}
+&nbsp;
+&nbsp;		}catch(TimeConflictException e){
+<b class="nc">&nbsp;			System.out.println(e.getMessage());</b>
+&nbsp;		}
+&nbsp;
+<b class="nc">&nbsp;		this.mainMenu();</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Allows the user to schedule vacation time for an employee.
+&nbsp;	 */
+&nbsp;	public void scheduleVacation() {
+&nbsp;
+&nbsp;		//Read in start month
+<b class="nc">&nbsp;		int sMonth = Integer.parseInt(inputOutput(&quot;\nEnter the month that the vacation starts (1-12): &quot;));</b>
+&nbsp;
+&nbsp;		//Read in start day
+<b class="nc">&nbsp;		int sDay = Integer.parseInt(inputOutput(&quot;\nEnter the day the vacation starts (1-31): &quot;));</b>
+&nbsp;
+&nbsp;		//Read in end month
+<b class="nc">&nbsp;		int eMonth = Integer.parseInt(inputOutput(&quot;\nEnter the month that the vacation ends (1-12): &quot;));</b>
+&nbsp;
+&nbsp;		//Read in end day
+<b class="nc">&nbsp;		int eDay = Integer.parseInt(inputOutput(&quot;\nEnter the day the vacation ends (1-31): &quot;));</b>
+&nbsp;
+<b class="nc">&nbsp;		System.out.println(&quot;Which person will be taking the vacation:&quot;);</b>
+&nbsp;		//Display the people available at that time
+<b class="nc">&nbsp;		for(Person p: org.getEmployees()){</b>
+<b class="nc">&nbsp;			System.out.println(p.getName());</b>
+&nbsp;		}
+&nbsp;
+&nbsp;		//Read in person names
+<b class="nc">&nbsp;		ArrayList&lt;Person&gt; attendees = new ArrayList&lt;Person&gt;();</b>
+<b class="nc">&nbsp;		String name = inputOutput(&quot;\nEnter a person&#39;s name, or cancel to cancel the request: &quot;);</b>
+<b class="nc">&nbsp;		Person who = new Person();</b>
+<b class="nc">&nbsp;		if(!name.equals(&quot;cancel&quot;)){</b>
+&nbsp;			try{
+<b class="nc">&nbsp;				who = org.getEmployee(name);</b>
+<b class="nc">&nbsp;				attendees.add(who);</b>
+&nbsp;			}catch(Exception e){
+<b class="nc">&nbsp;				System.out.println(e.getMessage());</b>
+&nbsp;			}
+&nbsp;		}
+&nbsp;
+&nbsp;		// See if there are any conflicts during the period
+<b class="nc">&nbsp;		boolean conflict=false;</b>
+&nbsp;		try{
+<b class="nc">&nbsp;			if(sMonth!=eMonth){</b>
+&nbsp;				// Start month
+<b class="nc">&nbsp;				for(int day=sDay; day&lt;=31;day++){</b>
+<b class="nc">&nbsp;					if(who.isBusy(sMonth,day,0,23)){</b>
+<b class="nc">&nbsp;						if(!who.getMeeting(sMonth,day,0).getDescription().equals(&quot;Day does not exist&quot;)){</b>
+<b class="nc">&nbsp;							System.out.println(&quot;There is a conflict for date &quot;+sMonth+&quot;/&quot;+day+&quot;:\n&quot;+who.printAgenda(sMonth, day));</b>
+<b class="nc">&nbsp;							conflict=true;</b>
+&nbsp;						}
+&nbsp;					}
+&nbsp;				}
+&nbsp;				// Any intervening months
+<b class="nc">&nbsp;				for(int month=sMonth+1; month&lt;eMonth;month++){</b>
+<b class="nc">&nbsp;					for(int day=1; day&lt;=31;day++){</b>
+<b class="nc">&nbsp;						if(who.isBusy(month,day,0,23)){</b>
+<b class="nc">&nbsp;							if(!who.getMeeting(month,day,0).getDescription().equals(&quot;Day does not exist&quot;)){</b>
+<b class="nc">&nbsp;								System.out.println(&quot;There is a conflict for date &quot;+month+&quot;/&quot;+day+&quot;:\n&quot;+who.printAgenda(month, day));</b>
+<b class="nc">&nbsp;								conflict=true;</b>
+&nbsp;							}
+&nbsp;						}
+&nbsp;					}
+&nbsp;				}
+&nbsp;				// End month
+<b class="nc">&nbsp;				for(int day=1;day&lt;=eDay;day++){</b>
+<b class="nc">&nbsp;					if(who.isBusy(eMonth,day,0,23)){</b>
+<b class="nc">&nbsp;						if(!who.getMeeting(eMonth,day,0).getDescription().equals(&quot;Day does not exist&quot;)){</b>
+<b class="nc">&nbsp;							System.out.println(&quot;There is a conflict for date &quot;+eMonth+&quot;/&quot;+day+&quot;:\n&quot;+who.printAgenda(eMonth, day));</b>
+<b class="nc">&nbsp;							conflict=true;</b>
+&nbsp;						}
+&nbsp;					}
+&nbsp;				}
+&nbsp;			}else{
+<b class="nc">&nbsp;				for(int day=sDay; day&lt;=eDay;day++){</b>
+<b class="nc">&nbsp;					if(who.isBusy(sMonth,day,0,23)){</b>
+<b class="nc">&nbsp;						if(!who.getMeeting(sMonth,day,0).getDescription().equals(&quot;Day does not exist&quot;)){</b>
+<b class="nc">&nbsp;							System.out.println(&quot;There is a conflict for date &quot;+sMonth+&quot;/&quot;+day+&quot;:\n&quot;+who.printAgenda(sMonth, day));</b>
+<b class="nc">&nbsp;							conflict=true;</b>
+&nbsp;						}
+&nbsp;					}
+&nbsp;				}
+&nbsp;			}
+&nbsp;		}catch(TimeConflictException e){
+<b class="nc">&nbsp;			System.out.println(e.getMessage());</b>
+<b class="nc">&nbsp;			this.mainMenu();</b>
+&nbsp;		}
+&nbsp;
+<b class="nc">&nbsp;		if(conflict){</b>
+<b class="nc">&nbsp;			this.mainMenu();</b>
+&nbsp;		}else{
+&nbsp;			// Book the time
+<b class="nc">&nbsp;			if(sMonth!=eMonth){</b>
+&nbsp;				// Start month
+<b class="nc">&nbsp;				for(int day=sDay; day&lt;=31;day++){</b>
+<b class="nc">&nbsp;					Meeting meeting = new Meeting(sMonth,day,0,23,attendees,new Room(),&quot;vacation&quot;);</b>
+&nbsp;					try{
+<b class="nc">&nbsp;						who.addMeeting(meeting);</b>
+&nbsp;					}catch(TimeConflictException e){
+<b class="nc">&nbsp;						System.out.println(e.getMessage());</b>
+<b class="nc">&nbsp;						this.mainMenu();</b>
+&nbsp;					}
+&nbsp;				}
+&nbsp;				// Any intervening months
+<b class="nc">&nbsp;				for(int month=sMonth+1; month&lt;eMonth;month++){</b>
+<b class="nc">&nbsp;					for(int day=1; day&lt;=31;day++){</b>
+<b class="nc">&nbsp;						Meeting meeting = new Meeting(month,day,0,23,attendees,new Room(),&quot;vacation&quot;);</b>
+&nbsp;						try{
+<b class="nc">&nbsp;							who.addMeeting(meeting);</b>
+&nbsp;						}catch(TimeConflictException e){
+<b class="nc">&nbsp;							System.out.println(e.getMessage());</b>
+<b class="nc">&nbsp;							this.mainMenu();</b>
+&nbsp;						}
+&nbsp;					}
+&nbsp;				}
+&nbsp;				// End month
+<b class="nc">&nbsp;				for(int day=1;day&lt;=eDay;day++){</b>
+<b class="nc">&nbsp;					Meeting meeting = new Meeting(eMonth,day,0,23,attendees,new Room(),&quot;vacation&quot;);</b>
+&nbsp;					try{
+<b class="nc">&nbsp;						who.addMeeting(meeting);</b>
+&nbsp;					}catch(TimeConflictException e){
+<b class="nc">&nbsp;						System.out.println(e.getMessage());</b>
+<b class="nc">&nbsp;						this.mainMenu();</b>
+&nbsp;					}
+&nbsp;				}
+&nbsp;			}else{
+<b class="nc">&nbsp;				for(int day=sDay; day&lt;=eDay;day++){</b>
+<b class="nc">&nbsp;					Meeting meeting = new Meeting(sMonth,day,0,23,attendees,new Room(),&quot;vacation&quot;);</b>
+&nbsp;					try{
+<b class="nc">&nbsp;						who.addMeeting(meeting);</b>
+&nbsp;					}catch(TimeConflictException e){
+<b class="nc">&nbsp;						System.out.println(e.getMessage());</b>
+<b class="nc">&nbsp;						this.mainMenu();</b>
+&nbsp;					}
+&nbsp;				}
+&nbsp;			}
+&nbsp;		}
+&nbsp;
+<b class="nc">&nbsp;		this.mainMenu();</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Allows a user to check the availability of a room at a given time.
+&nbsp;	 */
+&nbsp;	public void checkRoomAvailability() {
+&nbsp;
+&nbsp;		//Read in month
+<b class="nc">&nbsp;		int month = Integer.parseInt(inputOutput(&quot;\nEnter the month of the meeting (1-12): &quot;));</b>
+&nbsp;
+&nbsp;		//Read in day
+<b class="nc">&nbsp;		int day = Integer.parseInt(inputOutput(&quot;\nEnter the day of the meeting (1-31): &quot;));</b>
+&nbsp;
+&nbsp;		//Read in start time
+<b class="nc">&nbsp;		int startTime = Integer.parseInt(inputOutput(&quot;\nEnter the starting hour of the meeting (0-23): &quot;));</b>
+&nbsp;
+&nbsp;		//Read in end time
+<b class="nc">&nbsp;		int endTime = Integer.parseInt(inputOutput(&quot;\nEnter the ending hour of the meeting (0-23): &quot;));</b>
+&nbsp;
+<b class="nc">&nbsp;		System.out.println(&quot;The rooms open at that time are:&quot;);</b>
+&nbsp;		//Display the rooms open at that time
+<b class="nc">&nbsp;		for(Room r: org.getRooms()){</b>
+&nbsp;			try{
+<b class="nc">&nbsp;				if(!(r.isBusy(month, day, startTime, endTime))){</b>
+<b class="nc">&nbsp;					System.out.println(r.getID());</b>
+&nbsp;				}
+&nbsp;			}catch(TimeConflictException e){
+<b class="nc">&nbsp;				System.out.println(e.getMessage());</b>
+<b class="nc">&nbsp;				this.mainMenu();</b>
+&nbsp;			}
+&nbsp;		}
+&nbsp;
+<b class="nc">&nbsp;		this.mainMenu();</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Allows the user to check the availability of a given employee
+&nbsp;	 * at a particular time.
+&nbsp;	 */
+&nbsp;	public void checkEmployeeAvailability() {
+&nbsp;
+&nbsp;		//Read in month
+<b class="nc">&nbsp;		int month = Integer.parseInt(inputOutput(&quot;\nEnter the month of the meeting (1-12): &quot;));</b>
+&nbsp;
+&nbsp;		//Read in day
+<b class="nc">&nbsp;		int day = Integer.parseInt(inputOutput(&quot;\nEnter the day of the meeting (1-31): &quot;));</b>
+&nbsp;
+&nbsp;		//Read in start time
+<b class="nc">&nbsp;		int startTime = Integer.parseInt(inputOutput(&quot;\nEnter the starting hour of the meeting (0-23): &quot;));</b>
+&nbsp;
+&nbsp;		//Read in end time
+<b class="nc">&nbsp;		int endTime = Integer.parseInt(inputOutput(&quot;\nEnter the ending hour of the meeting (0-23): &quot;));</b>
+&nbsp;
+<b class="nc">&nbsp;		System.out.println(&quot;The people available to attend at that time are:&quot;);</b>
+&nbsp;		//Display the people available at that time
+<b class="nc">&nbsp;		for(Person p: org.getEmployees()){</b>
+&nbsp;			try{
+<b class="nc">&nbsp;				if(!(p.isBusy(month, day, startTime, endTime))){</b>
+<b class="nc">&nbsp;					System.out.println(p.getName());</b>
+&nbsp;				}
+&nbsp;			}catch(TimeConflictException e){
+<b class="nc">&nbsp;				System.out.println(e.getMessage());</b>
+<b class="nc">&nbsp;				this.mainMenu();</b>
+&nbsp;			}
+&nbsp;		}
+&nbsp;
+<b class="nc">&nbsp;		this.mainMenu();</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Allows the user to view the agenda of a room on a particular month
+&nbsp;	 * or day.
+&nbsp;	 */
+&nbsp;	public void checkAgendaRoom() {
+&nbsp;
+&nbsp;		//Read in month
+<b class="nc">&nbsp;		int month = Integer.parseInt(inputOutput(&quot;\nEnter the month (1-12): &quot;));</b>
+&nbsp;
+&nbsp;		//Read in day
+<b class="nc">&nbsp;		String day = inputOutput(&quot;\nEnter the day (1-31), or all to see the whole month: &quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;		System.out.println(&quot;Which of the following rooms are you interested in?&quot;);</b>
+&nbsp;		//Display the rooms open at that time
+<b class="nc">&nbsp;		for(Room r: org.getRooms()){</b>
+<b class="nc">&nbsp;			System.out.println(r.getID());</b>
+&nbsp;		}
+&nbsp;
+&nbsp;		//Read in person names
+<b class="nc">&nbsp;		String name = inputOutput(&quot;\nEnter a room ID, or cancel to cancel the request: &quot;);</b>
+<b class="nc">&nbsp;		if(!name.equals(&quot;cancel&quot;)){</b>
+&nbsp;			try{
+<b class="nc">&nbsp;				Room who = org.getRoom(name);</b>
+<b class="nc">&nbsp;				if(!day.equals(&quot;all&quot;)){</b>
+<b class="nc">&nbsp;					System.out.println(who.printAgenda(month, Integer.parseInt(day)));</b>
+&nbsp;				}else{
+<b class="nc">&nbsp;					System.out.println(who.printAgenda(month));</b>
+&nbsp;				}
+&nbsp;			}catch(Exception e){
+<b class="nc">&nbsp;				System.out.println(e.getMessage());</b>
+&nbsp;			}
+&nbsp;		}
+<b class="nc">&nbsp;		this.mainMenu();</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Allows the user to view the agenda for a particular employee
+&nbsp;	 * on a particular month or day.
+&nbsp;	 */
+&nbsp;	public void checkAgendaPerson() {
+&nbsp;
+&nbsp;		//Read in month
+<b class="nc">&nbsp;		int month = Integer.parseInt(inputOutput(&quot;\nEnter the month (1-12): &quot;));</b>
+&nbsp;
+&nbsp;		//Read in day
+<b class="nc">&nbsp;		String day = inputOutput(&quot;\nEnter the day (1-31), or all to see the whole month: &quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;		System.out.println(&quot;Which of the following people are you interested in?&quot;);</b>
+&nbsp;		//Display the rooms open at that time
+<b class="nc">&nbsp;		for(Person p: org.getEmployees()){</b>
+<b class="nc">&nbsp;			System.out.println(p.getName());</b>
+&nbsp;		}
+&nbsp;
+&nbsp;		//Read in person names
+<b class="nc">&nbsp;		String name = inputOutput(&quot;\nEnter a name, or cancel to cancel the request: &quot;);</b>
+<b class="nc">&nbsp;		if(!name.equals(&quot;cancel&quot;)){</b>
+&nbsp;			try{
+<b class="nc">&nbsp;				Person who = org.getEmployee(name);</b>
+<b class="nc">&nbsp;				if(!day.equals(&quot;all&quot;)){</b>
+<b class="nc">&nbsp;					System.out.println(who.printAgenda(month, Integer.parseInt(day)));</b>
+&nbsp;				}else{
+<b class="nc">&nbsp;					System.out.println(who.printAgenda(month));</b>
+&nbsp;				}
+&nbsp;			}catch(Exception e){
+<b class="nc">&nbsp;				System.out.println(e.getMessage());</b>
+&nbsp;			}
+&nbsp;		}
+<b class="nc">&nbsp;		this.mainMenu();</b>
+&nbsp;	}
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-10-30 09:43</div>
+</div>
+</body>
+</html>

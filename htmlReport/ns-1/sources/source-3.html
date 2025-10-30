@@ -1,0 +1,193 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Organization</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">edu.sc.csce747.MeetingPlanner</a>
+</div>
+
+<h1>Coverage Summary for Class: Organization (edu.sc.csce747.MeetingPlanner)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Organization</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (4/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    96.3%
+  </span>
+  <span class="absValue">
+    (26/27)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package edu.sc.csce747.MeetingPlanner;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;
+&nbsp;public class Organization {
+&nbsp;	/** This class is used to initialize and store a list of employees
+&nbsp;	 * and rooms available for meetings. 
+&nbsp;	 * 
+&nbsp;	 *  It gets a bunch of initialization code out of the PlannerInterface.
+&nbsp;	 */
+&nbsp;	
+&nbsp;	private ArrayList&lt;Person&gt; employees;
+&nbsp;	private ArrayList&lt;Room&gt; rooms;
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Default constructor - sets up some rooms and people.
+&nbsp;	 */
+<b class="fc">&nbsp;	public Organization(){</b>
+<b class="fc">&nbsp;		employees = new ArrayList&lt;Person&gt;();</b>
+<b class="fc">&nbsp;		employees.add(new Person(&quot;Greg Gay&quot;));</b>
+<b class="fc">&nbsp;		employees.add(new Person(&quot;Manton Matthews&quot;));</b>
+<b class="fc">&nbsp;		employees.add(new Person(&quot;John Rose&quot;));</b>
+<b class="fc">&nbsp;		employees.add(new Person(&quot;Ryan Austin&quot;));</b>
+<b class="fc">&nbsp;		employees.add(new Person(&quot;Csilla Farkas&quot;));</b>
+&nbsp;		
+<b class="fc">&nbsp;		rooms = new ArrayList&lt;Room&gt;();</b>
+<b class="fc">&nbsp;		rooms.add(new Room(&quot;2A01&quot;));</b>
+<b class="fc">&nbsp;		rooms.add(new Room(&quot;2A02&quot;));</b>
+<b class="fc">&nbsp;		rooms.add(new Room(&quot;2A03&quot;));</b>
+<b class="fc">&nbsp;		rooms.add(new Room(&quot;2A04&quot;));</b>
+<b class="fc">&nbsp;		rooms.add(new Room(&quot;2A05&quot;));</b>
+&nbsp;	}
+&nbsp;	
+&nbsp;	public ArrayList&lt;Person&gt; getEmployees() {
+<b class="fc">&nbsp;		return employees;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	public ArrayList&lt;Room&gt; getRooms() {
+<b class="nc">&nbsp;		return rooms;</b>
+&nbsp;	}
+&nbsp;	
+&nbsp;	/**
+&nbsp;	 * Search for and retrieve a room.
+&nbsp;	 * @param ID - ID of the room to retrieve.
+&nbsp;	 * @return Room - The requested Room object.
+&nbsp;	 * @throws Exception - If the room does not exist.
+&nbsp;	 */
+&nbsp;	public Room getRoom(String ID) throws Exception{
+<b class="fc">&nbsp;		Room room = null;</b>
+<b class="fc">&nbsp;		for(Room toCheck : rooms){</b>
+<b class="fc">&nbsp;			if(toCheck.getID().equals(ID)){</b>
+<b class="fc">&nbsp;				room = toCheck;</b>
+<b class="fc">&nbsp;				return room;</b>
+&nbsp;			}
+&nbsp;		}
+&nbsp;		
+<b class="fc">&nbsp;		throw new Exception(&quot;Requested room does not exist&quot;);</b>
+&nbsp;	}
+&nbsp;	
+&nbsp;	/**
+&nbsp;	 * Search for and retrieve a person.
+&nbsp;	 * @param name - The name of the person to retrieve.
+&nbsp;	 * @return Person - The requested Person object.
+&nbsp;	 * @throws Exception - If the person does not exist.
+&nbsp;	 */
+&nbsp;	public Person getEmployee(String name) throws Exception{
+<b class="fc">&nbsp;		Person employee = null;</b>
+<b class="fc">&nbsp;		for(Person toCheck : employees){</b>
+<b class="fc">&nbsp;			if(toCheck.getName().equals(name)){</b>
+<b class="fc">&nbsp;				employee = toCheck;</b>
+<b class="fc">&nbsp;				return employee;</b>
+&nbsp;			}
+&nbsp;		}
+&nbsp;		
+<b class="fc">&nbsp;		throw new Exception(&quot;Requested employee does not exist&quot;);</b>
+&nbsp;	}
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-10-30 09:43</div>
+</div>
+</body>
+</html>

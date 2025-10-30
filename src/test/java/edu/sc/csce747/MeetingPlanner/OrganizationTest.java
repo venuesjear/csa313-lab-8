@@ -16,6 +16,13 @@ public class OrganizationTest {
     }
 
     @Test
+    public void testGetRooms() {
+        ArrayList<Room> rooms = organization.getRooms();
+        assertNotNull(rooms);
+        assertTrue(rooms.size() >= 5);
+    }
+
+    @Test
     public void testGetRoom_existingRoom() throws Exception {
         Room room = organization.getRoom("2A01");
         assertNotNull(room);

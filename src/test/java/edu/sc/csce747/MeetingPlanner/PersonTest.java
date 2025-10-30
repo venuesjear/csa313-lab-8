@@ -3,6 +3,8 @@ package edu.sc.csce747.MeetingPlanner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PersonTest {
@@ -58,4 +60,53 @@ public class PersonTest {
         assertEquals(1, retrieved.getDay());
     }
 
+    @Test
+    public void testDefaultConstructor() {
+        Person defaultPerson = new Person();
+        assertNotNull(defaultPerson);
+        assertEquals("", defaultPerson.getName());
+    }
+
+    @Test
+    public void testPrintAgenda_month() throws TimeConflictException {
+        Meeting meeting = new Meeting(1, 1, 10, 12, new ArrayList<>(), new Room("101"), "Team Meeting");
+        person.addMeeting(meeting);
+
+        meeting.addAttendee(person);
+
+        String agenda = person.printAgenda(1);
+
+        assertNotNull(agenda);
+        assertTrue(agenda.contains("1/1"));
+        assertTrue(agenda.contains("Team Meeting"));
+        assertTrue(agenda.contains("Sugar"));
+    }
+
+    @Test
+    public void testPrintAgenda_day() throws TimeConflictException {
+        Meeting meeting = new Meeting(1, 1, 10, 12, new ArrayList<>(), new Room("101"), "Team Meeting");
+        person.addMeeting(meeting);
+        meeting.addAttendee(person);
+
+        String agenda = person.printAgenda(1, 1);
+
+        assertNotNull(agenda);
+        assertTrue(agenda.contains("1/1"));
+        assertTrue(agenda.contains("Team Meeting"));
+        assertTrue(agenda.contains("Sugar"));
+    }
+
+    @Test
+    public void testRemoveMeeting() throws TimeConflictException {
+        Meeting meeting = new Meeting(7, 20, 10, 11);
+        meeting.setDescription("Review Meeting");
+        person.addMeeting(meeting);
+
+        assertNotNull(person.getMeeting(7, 20, 0));
+
+        person.removeMeeting(7, 20, 0);
+
+        String agenda = person.printAgenda(7, 20);
+        assertFalse(agenda.contains("Review Meeting"));
+    }
 }
